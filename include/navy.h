@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <signal.h>
 
 enum play_state {
     PLAYER_ONE,

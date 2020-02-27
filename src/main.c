@@ -7,17 +7,22 @@
 
 #include "../include/navy.h"
 
-int check_errors(int ac, char **av)
+void display_map(navy_t *navy)
 {
-    if (ac > 3) {
-        return (84);
-    }
-    return (0);
+    write(1, navy->map.map, navy->map.map_size);
+    write(1, "\n", 1);
 }
 
-int find_map(char *filepath)
+void display_pid(char *pid)
 {
-    navy_t *navy = malloc(sizeof(*navy));
+    if (pid == NULL) {
+        int process = getpid();
+        printf("my_pid: %d\n", process);
+    }
+}
+
+int parsing_map(navy_t *navy, char *filepath)
+{
     struct stat off_t;
     int fd = open(filepath, O_RDONLY);
     stat(filepath, &off_t);
@@ -30,16 +35,21 @@ int find_map(char *filepath)
     return (0);
 }
 
+int my_navy(char *pid, char *filepath)
+{
+    navy_t *navy = malloc(sizeof(*navy));
+    parsing_map(navy, filepath);
+    display_pid(pid);
+    display_map(navy);
+    return (0);
+}
+
 int main(int ac, char **av)
 {
-    if (check_errors(ac, av) == 84) {
-        return (84);
+    if (ac == 2) {
+        my_navy(NULL, av[1]);
+    } else if (ac == 3) {
+        my_navy(av[1], av[2]);
     }
-    if (ac == 1) {
-        if (find_map(av[1] == 84)) {
-            return (84);
-        }
-    }
-    run();
     return (0);
 }
