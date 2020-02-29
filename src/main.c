@@ -46,9 +46,16 @@ int my_navy(char *pid, char *filepath)
 
 int main(int ac, char **av)
 {
+    if (ac != 2 && ac != 3) {
+        return (84);
+    }
     if (ac == 2) {
+        if (av[1][0] == '-' && av[1][1] == 'h') {
+            display_help();
+            return (0);
+        }
         my_navy(NULL, av[1]);
-    } else if (ac == 3) {
+    } else {
         my_navy(av[1], av[2]);
     }
     return (0);
