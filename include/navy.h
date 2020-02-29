@@ -34,5 +34,8 @@ typedef struct navy {
 
 //UTILS
 int my_strlen(char *str);
+void my_putchar(char c);
+void my_putstr(char const *str);
+void display_help(void);
 
 #endif /* !NAVY_H_ */
