@@ -13,7 +13,7 @@ void display_map(char **tab)
     my_putstr("-+---------------\n");
     for (int i = 0; tab[i] != NULL; i++) {
         my_printf("%d|", i + 1);
-        for (int z = 0; tab[i][z] != NULL; z++) {
+        for (int z = 0; tab[i][z] != '\0'; z++) {
             if (z > 0)
                 my_putchar(' ');
             my_putchar(tab[i][z]);
@@ -24,25 +24,30 @@ void display_map(char **tab)
 
 int my_put_boats(char *pos, char **map)
 {
-    int i, j = 0;
-    char boat = '2';
-    int line = 49;
-    int colum = 65;
-    if (pos[0] != '2')
-        return 84;
-    while (pos[i] != '\n') {
-        while (pos[i] != ':') {
-            if (pos[i] >= 65 && pos[i] <= 72) {
-                line = pos[i];
-                i++;
+    int i = 0;
+    int x1, x2, y1, y2 = 0;
+    while (pos[i] != '\0') {
+        x1 = pos[i + 2] - 65;
+        y1 = pos[i + 3] - 49;
+        x2 = pos[i + 5] - 65;
+        y2 = pos[i + 6] - 49;
+        while (y1 <= y2 && x1 <= x2) {
+            while (x1 < x2) {
+                if (map[y1][x1] == '.') {
+                    map[y1][x1] = pos[i];
+                    x1++;
+                } else
+                    return 84;
             }
-            if (pos[i] >= 49 && pos[i] <= 56) {
-                boat = pos[i];
-                i++;
-            }
+            if (map[y1][x1] == '.') {
+                map[y1][x1] = pos[i];
+                y1++;
+            } else
+                return 84;
         }
-        i++;
+        i += 8;
     }
+    return (0);
 }
 
 void display_pid(int pid)
@@ -81,6 +86,7 @@ char **parsing_map(char *filepath)
         i++;
     }
     printf("POS :\n%s\n", pos);
+    my_put_boats(pos, map);
     return (map);
 }
 
