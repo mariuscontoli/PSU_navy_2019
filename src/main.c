@@ -9,8 +9,39 @@
 
 void display_map(char **tab)
 {
+    my_putstr(" |A B C D E F G H\n");
+    my_putstr("-+---------------\n");
     for (int i = 0; tab[i] != NULL; i++) {
-        printf("%s\n", tab[i]);
+        my_printf("%d|", i + 1);
+        for (int z = 0; tab[i][z] != NULL; z++) {
+            if (z > 0)
+                my_putchar(' ');
+            my_putchar(tab[i][z]);
+        }
+        my_printf("\n");
+    }
+}
+
+int my_put_boats(char *pos, char **map)
+{
+    int i, j = 0;
+    char boat = '2';
+    int line = 49;
+    int colum = 65;
+    if (pos[0] != '2')
+        return 84;
+    while (pos[i] != '\n') {
+        while (pos[i] != ':') {
+            if (pos[i] >= 65 && pos[i] <= 72) {
+                line = pos[i];
+                i++;
+            }
+            if (pos[i] >= 49 && pos[i] <= 56) {
+                boat = pos[i];
+                i++;
+            }
+        }
+        i++;
     }
 }
 
@@ -18,7 +49,9 @@ void display_pid(int pid)
 {
     if (pid == 0) {
         int process = getpid();
-        printf("my_pid: %d\n", process);
+        my_printf("my_pid: %d\n", process);
+    } else {
+        my_printf("my_pid: %d\n", pid);
     }
 }
 
@@ -47,6 +80,7 @@ char **parsing_map(char *filepath)
         map[i] = my_strdup("........");
         i++;
     }
+    printf("POS :\n%s\n", pos);
     return (map);
 }
 
