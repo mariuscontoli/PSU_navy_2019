@@ -7,26 +7,17 @@
 
 #include "../include/navy.h"
 
-void my_putchar(char c)
+char *my_strdup(char const *src)
 {
-    write(1, &c, 1);
-}
-
-void my_putstr(char const *str)
-{
-    int i = 0;
-    while (str[i] != '\0') {
-        my_putchar(str[i]);
-        i++;
+    char *str;
+    int copy = 0;
+    int size = 0;
+    size = my_strlen(src);
+    str = malloc(size);
+    while (src[copy] != '\0') {
+        str[copy] = src[copy];
+        copy++;
     }
-}
-
-int my_strlen(char *str)
-{
-    int len;
-
-    while (str[len] != '\0') {
-        len++;
-    }
-    return len;
+    str[copy] = '\0';
+    return (str);
 }
