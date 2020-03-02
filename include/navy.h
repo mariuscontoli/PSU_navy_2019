@@ -8,34 +8,38 @@
 #ifndef NAVY_H_
 #define NAVY_H_
 
+#ifndef READ_SIZE
+#define READ_SIZE (32)
+#endif /* !READ_SIZE */
+
+#ifndef MAP_SIZE
+#define MAP_SIZE (8)
+#endif /* !MAP_SIZE */
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <signal.h>
+#include "../my_printf/include/my_printf.h"
 
-enum play_state {
-    PLAYER_ONE,
-    PLAYER_TWO
-};
-
-typedef struct map {
+typedef struct player {
     char **map;
-    int map_size;
-} map_t;
+    char **enemy_map;
+    int my_pid;
+    int his_pid;
+} player_t;
 
 typedef struct navy {
     int pid_host;
     int pid_guest;
-    map_t map;
 } navy_t;
 
 //UTILS
-int my_strlen(char *str);
-void my_putchar(char c);
-void my_putstr(char const *str);
 void display_help(void);
+char *my_strdup(char const *src);
 
 #endif /* !NAVY_H_ */
