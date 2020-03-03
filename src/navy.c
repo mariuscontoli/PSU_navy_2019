@@ -7,10 +7,26 @@
 
 #include "../include/navy.h"
 
-int my_navy(player_t *player)
+void connection(player_t *player, int play)
+{
+    if (play == 1) {
+        my_putstr("waiting for enemy connection...\n");
+    }
+    usleep(2000);
+}
+
+int navy_player_one(player_t *player)
 {
     display_pid(player->my_pid);
-    display_map(player->map);
+    connection(player, 1);
+    //display_map(player->map);
+    return (0);
+}
+
+int navy_player_two(player_t *player)
+{
+    display_pid(player->my_pid);
+    connection(player, 2);
     return (0);
 }
 
@@ -27,12 +43,14 @@ int main(int ac, char **av)
             return (0);
         }
         if (my_init_player_one(&player, av) == 84)
-            return 84;
-        my_navy(&player);
+            return (84);
+        if (navy_player_one(&player) == 84)
+            return (84);
     } else {
         if (my_init_player_two(&player, av) == 84)
-            return 84;
-        my_navy(&player);
+            return (84);
+        if (navy_player_two(&player) == 84)
+            return (84);
     }
     return (0);
 }
