@@ -38,7 +38,13 @@ typedef struct navy {
     int pid_guest;
 } navy_t;
 
-//UTILS
+char **parsing_map(char *filepath);
+char *parsing_file(char *filepath);
+int my_init_player_one(player_t *player, char **av);
+int my_init_player_two(player_t *player, char **av);
+int my_put_boats(char *pos, char **map);
+void display_map(char **tab);
+void display_pid(int pid);
 void display_help(void);
 char *my_strdup(char const *src);
 
