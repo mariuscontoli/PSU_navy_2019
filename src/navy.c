@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** main.c
+** navy.c
 ** File description:
 ** main source file for navy project
 */
