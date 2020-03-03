@@ -85,8 +85,9 @@ char **parsing_map(char *filepath)
         map[i] = my_strdup("........");
         i++;
     }
-    printf("POS :\n%s\n", pos);
-    my_put_boats(pos, map);
+    if (my_put_boats(pos, map) == 84) {
+        return NULL;
+    }
     return (map);
 }
 
@@ -126,7 +127,7 @@ int my_init_player_two(player_t *player, char **av)
     }
     player->enemy_map = malloc(sizeof(char*) * MAP_SIZE + 1);
     player->enemy_map[MAP_SIZE] = NULL;
-    while (i <= MAP_SIZE - 1 ) {
+    while (i <= MAP_SIZE - 1) {
         player->enemy_map[i] = my_strdup("........");
         i++;
     }
@@ -147,7 +148,8 @@ int main(int ac, char **av)
             display_help();
             return (0);
         }
-        my_init_player_one(&player, av);
+        if (my_init_player_one(&player, av) == 84)
+            return 84;
         my_navy(&player);
     } else {
         my_init_player_two(&player, av);
