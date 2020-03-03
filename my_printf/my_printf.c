@@ -13,7 +13,6 @@ PTR flags[] = {
         {'S', &print_sstr},
         {'d', &print_nbr},
         {'i', &print_nbr},
-        {'u', &print_uns_nbr},
         {'x', &print_nbr_hex},
         {'X', &print_nbr_hexx},
         {'o', &print_nbr_oct},

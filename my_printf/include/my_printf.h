@@ -27,7 +27,6 @@ void print_nbr_hexx(va_list ap);
 void print_nbr_oct(va_list ap);
 void print_uns_nbr(va_list ap);
 void print_nbr_bin(va_list ap);
-void my_put_nbr_uns(unsigned int nb);
 void my_put_nbr_bin(unsigned int nb);
 void my_put_nbr_oct(int nb);
 void my_put_nbr_hex(int nb);

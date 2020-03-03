@@ -11,13 +11,6 @@
 #include <unistd.h>
 #include "include/my_printf.h"
 
-void print_uns_nbr(va_list ap)
-{
-    unsigned int nb;
-    nb = va_arg(ap, unsigned int);
-    my_put_nbr_uns(nb);
-}
-
 void print_nbr(va_list ap)
 {
     int nb;
