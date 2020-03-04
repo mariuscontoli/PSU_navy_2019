@@ -11,11 +11,13 @@ char *parsing_file(char *filepath)
 {
     int file_des;
     char *pos;
-    file_des = open(filepath, O_RDONLY);
-    if (file_des == -1)
+    if ((file_des = open(filepath, O_RDONLY)) < 0)
         return NULL;
     pos = malloc(sizeof(char) * READ_SIZE + 1);
     read(file_des, pos, READ_SIZE);
+    if (read(file_des, pos, 1) != 0) {
+        return NULL;
+    }
     pos[READ_SIZE] = '\0';
     return (pos);
 }
