@@ -13,7 +13,9 @@ char *parsing_file(char *filepath)
     char *pos;
     file_des = open(filepath, O_RDONLY);
     pos = malloc(sizeof(char) * READ_SIZE + 1);
-    read(file_des, pos, READ_SIZE);
+    if (read(file_des, pos, READ_SIZE) == -1) {
+        return NULL;
+    }
     pos[READ_SIZE] = '\0';
     return (pos);
 }
