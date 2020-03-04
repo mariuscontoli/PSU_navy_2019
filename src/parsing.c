@@ -7,6 +7,44 @@
 
 #include "../include/navy.h"
 
+int error_size(char *pos, int i)
+{
+    int size = (pos[i] - 48);
+    if (size == (pos[i + 5] - pos[i + 2] + 1)) {
+        if (pos[i + 6] == pos[i + 3]) {
+            return (1);
+        } else {
+            return 84;
+        }
+    } else {
+        if (size == (pos[i + 6] - pos[i + 3] + 1)) {
+            return (1);
+        } else {
+            return 84;
+        }
+    }
+}
+
+
+char *error_file(char *pos)
+{
+    int i = 0;
+    int first = 50;
+    while (i != 32) {
+        if (pos[i] != first)
+            return NULL;
+        if (pos[i + 2] != pos[i + 5] && pos[i + 3] != pos[i + 6]) {
+            return NULL;
+        }
+        if (error_size(pos, i) == 84) {
+            return NULL;
+        }
+        i += 8;
+        first += 1;
+    }
+    return pos;
+}
+
 char *parsing_file(char *filepath)
 {
     int file_des;
@@ -19,6 +57,7 @@ char *parsing_file(char *filepath)
         return NULL;
     }
     pos[READ_SIZE] = '\0';
+    pos = error_file(pos);
     return (pos);
 }
 

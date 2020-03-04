@@ -18,7 +18,7 @@ int my_getnbr(char *str)
         i++;
     }
     for (; str[i] != '\0'; ++i) {
-            tmp = tmp * 10 + str[i] - '0';
+        tmp = tmp * 10 + str[i] - '0';
     }
     return (tmp * sign);
 }
