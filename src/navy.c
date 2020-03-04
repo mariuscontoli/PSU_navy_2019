@@ -26,11 +26,11 @@ int connect_one(player_t *player, struct sigaction sa)
 
 int connect_two(player_t *player, struct sigaction sa)
 {
-    display_pid(player->my_pid);
     if (kill(player->his_pid, SIGUSR2) == -1) {
-        my_putstr("INVALID PID\n");
+        my_putstr("Error : please enter a valid PID\n");
         return (84);
     }
+    display_pid(player->my_pid);
     my_putstr("sucessfully connected\n");
     player->win_cond = 0;
     return (0);
