@@ -16,12 +16,15 @@
 #define MAP_SIZE (8)
 #endif /* !MAP_SIZE */
 
+#define  _POSIX_C_SOURCE 200809L
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <time.h>
 #include <sys/types.h>
 #include <signal.h>
 #include "../my_printf/include/my_printf.h"
@@ -31,6 +34,7 @@ typedef struct player {
     char **enemy_map;
     int my_pid;
     int his_pid;
+    int win_cond;
 } player_t;
 
 typedef struct navy {
@@ -38,14 +42,18 @@ typedef struct navy {
     int pid_guest;
 } navy_t;
 
+int PID;
+
 char **parsing_map(char *filepath);
 char *parsing_file(char *filepath);
 int my_init_player_one(player_t *player, char **av);
 int my_init_player_two(player_t *player, char **av);
 int my_put_boats(char *pos, char **map);
-void display_map(char **tab);
+void display_my_map(char **tab);
+void display_enemy_map(char **tab);
 void display_pid(int pid);
 void display_help(void);
 char *my_strdup(char const *src);
+int my_getnbr(char *str);
 
 #endif /* !NAVY_H_ */
