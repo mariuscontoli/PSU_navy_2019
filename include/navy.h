@@ -46,9 +46,16 @@ int PID;
 
 char **parsing_map(char *filepath);
 char *parsing_file(char *filepath);
+char *error_file(char *pos);
 int my_init_player_one(player_t *player, char **av);
 int my_init_player_two(player_t *player, char **av);
+int navy_player_one(player_t *player);
+int navy_player_two(player_t *player);
+void signal_handler(int signal, siginfo_t *info, void *blabla);
+int connect_one(player_t *player, struct sigaction sa);
+int connect_two(player_t *player, struct sigaction sa);
 int my_put_boats(char *pos, char **map);
+int error_size(char *pos, int i);
 void display_my_map(char **tab);
 void display_enemy_map(char **tab);
 void display_pid(int pid);
