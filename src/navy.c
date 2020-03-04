@@ -6,27 +6,56 @@
 */
 
 #include "../include/navy.h"
+#include <signal.h>
+#include <sys/stat.h>
 
-void connection(player_t *player, int play)
+void signal_handler(int signal, siginfo_t *info, void *blabla)
 {
-    if (play == 1) {
-        my_putstr("waiting for enemy connection...\n");
+    PID = info->si_pid;
+    my_putstr("enemy connected\n");
+}
+
+int connect_one(player_t *player, struct sigaction sa)
+{
+    display_pid(player->my_pid);
+    my_putstr("waiting for enemy connection...\n\n");
+    sigaction(SIGUSR2, &sa, NULL);
+    pause();
+    return (0);
+}
+
+int connect_two(player_t *player, struct sigaction sa)
+{
+    display_pid(player->my_pid);
+    if (kill(player->his_pid, SIGUSR2) == -1) {
+        my_putstr("INVALID PID\n");
+        return (84);
     }
-    usleep(2000);
+    my_putstr("sucessfully connected\n");
+    player->win_cond = 0;
+    return (0);
 }
 
 int navy_player_one(player_t *player)
 {
-    display_pid(player->my_pid);
-    connection(player, 1);
-    //display_map(player->map);
+    struct sigaction sa;
+    sa.sa_sigaction = &signal_handler;
+    sa.sa_flags = SA_SIGINFO;
+    connect_one(player, sa);
+    display_my_map(player->map);
+    display_enemy_map(player->enemy_map);
     return (0);
 }
 
 int navy_player_two(player_t *player)
 {
-    display_pid(player->my_pid);
-    connection(player, 2);
+    struct sigaction sa;
+    sa.sa_sigaction = &signal_handler;
+    sa.sa_flags = SA_SIGINFO;
+    if (connect_two(player, sa) == 84)
+        return (84);
+    display_my_map(player->map);
+    display_enemy_map(player->enemy_map);
     return (0);
 }
 

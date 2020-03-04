@@ -41,6 +41,6 @@ int my_init_player_two(player_t *player, char **av)
         i++;
     }
     player->my_pid = getpid();
-    player->his_pid = 0;
+    player->his_pid = my_getnbr(av[1]);
     return (0);
 }
