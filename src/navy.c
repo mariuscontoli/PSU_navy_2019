@@ -15,33 +15,13 @@ void signal_handler(int signal, siginfo_t *info, void *blabla)
     my_putstr("enemy connected\n");
 }
 
-int connect_one(player_t *player, struct sigaction sa)
-{
-    display_pid(player->my_pid);
-    my_putstr("waiting for enemy connection...\n\n");
-    sigaction(SIGUSR2, &sa, NULL);
-    pause();
-    return (0);
-}
-
-int connect_two(player_t *player, struct sigaction sa)
-{
-    if (kill(player->his_pid, SIGUSR2) == -1) {
-        my_putstr("Error : please enter a valid PID\n");
-        return (84);
-    }
-    display_pid(player->my_pid);
-    my_putstr("sucessfully connected\n");
-    player->win_cond = 0;
-    return (0);
-}
-
 int navy_player_one(player_t *player)
 {
     struct sigaction sa;
     sa.sa_sigaction = &signal_handler;
     sa.sa_flags = SA_SIGINFO;
     connect_one(player, sa);
+    player->win_cond = 0;
     display_my_map(player->map);
     display_enemy_map(player->enemy_map);
     return (0);
@@ -54,6 +34,8 @@ int navy_player_two(player_t *player)
     sa.sa_flags = SA_SIGINFO;
     if (connect_two(player, sa) == 84)
         return (84);
+    player->win_cond = 0;
+    //play_game(player, sa);
     display_my_map(player->map);
     display_enemy_map(player->enemy_map);
     return (0);
