@@ -22,8 +22,7 @@ int navy_player_one(player_t *player)
     sa.sa_flags = SA_SIGINFO;
     connect_one(player, sa);
     player->win_cond = 0;
-    display_my_map(player->map);
-    display_enemy_map(player->enemy_map);
+    play_game_one(player, sa);
     return (0);
 }
 
@@ -35,9 +34,7 @@ int navy_player_two(player_t *player)
     if (connect_two(player, sa) == 84)
         return (84);
     player->win_cond = 0;
-    //play_game(player, sa);
-    display_my_map(player->map);
-    display_enemy_map(player->enemy_map);
+    play_game_two(player, sa);
     return (0);
 }
 
