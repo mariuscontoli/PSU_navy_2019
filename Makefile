@@ -11,7 +11,7 @@ SRC     =       $(shell find . -name '*.c')
 
 OBJ     =       $(SRC:.c=.o)
 
-CFLAGS  +=      -Wall -Wextra
+CFLAGS  +=      -Wall -Wextra -Wno-unused-parameter
 
 CFLAGS  +=      -I./include
 
