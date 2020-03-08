@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** navy.h
 ** File description:
-** navy header file 
+** navy header file
 */
 
 #ifndef NAVY_H_
