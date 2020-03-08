@@ -25,7 +25,6 @@ int error_size(char *pos, int i)
     }
 }
 
-
 char *error_file(char *pos)
 {
     int i = 0;
